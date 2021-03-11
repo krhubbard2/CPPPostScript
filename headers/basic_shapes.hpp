@@ -12,12 +12,14 @@ class Circle : public Shape{
         void draw(std::ofstream &file) const;
 };
 
-// class Polygon : public Shape{
-//     private:
-//         int _numSides;
-//         double sideLength;
-//     public:
-// };
+class Polygon : public Shape{
+    private:
+        int _numSides;
+        double sideLength;
+    public:
+        Polygon(const int & numberSides, const double & sideLength);
+        void draw(std::ofstream &file) const;
+};
 
 // class Rectangle : public Shape{
 //     private:
