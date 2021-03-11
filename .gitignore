@@ -1,1 +1,3 @@
 *.o
+build_test.ps
+main
