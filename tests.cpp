@@ -8,14 +8,5 @@ TEST_CASE( "Draw a circle." ){
     ofs.open("build_test.ps");
     Circle circle(144);
     circle.draw(ofs);
-    
-
-/*
-Circle circle(72)
-Sqaure square(72)
-Horizontal h(circle,square)
-h.draw()
-*/
-
     REQUIRE(1 == 1);
 }

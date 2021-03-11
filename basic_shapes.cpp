@@ -3,7 +3,7 @@
 #include <sstream>
 using std::string;
 using std::stringstream;
-#include <iostream>
+
 Circle::Circle(const double & radius) {
     _radius = radius;
     setHeight(radius*2);
