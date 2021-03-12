@@ -72,6 +72,5 @@ TEST_CASE("Draw a Square.")
     Square square(100);
     square.draw(ofs);
     ofs.close();
-    REQUIRE(1==0);
     REQUIRE(readFile() == "gsave\nnewpath\n50 50 translate\n/S 4 def /H 50 \ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\nclosepath\nstroke\ngrestore\n");
 }
