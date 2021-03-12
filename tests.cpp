@@ -51,5 +51,27 @@ TEST_CASE("Draw a polygon.")
     polygon.draw(ofs);
     ofs.close();
 
-    REQUIRE(readFile() == "Correct output goes here");
+    REQUIRE(readFile() == "newpath\n50 50 translate\n/S 4 def /H 50 \ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\nclosepath\nstroke\n");
+}
+
+TEST_CASE("Draw a triangle.")
+{
+    std::ofstream ofs;
+    ofs.open("build_test.ps");
+    Triangle triangle(100);
+    triangle.draw(ofs);
+    ofs.close();
+
+    REQUIRE(readFile() == "newpath\n50 43.3013 translate\n/S 3 def /H 43.3013 \ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\nclosepath\nstroke\n");
+}
+
+TEST_CASE("Draw a Square.")
+{
+    std::ofstream ofs;
+    ofs.open("build_test.ps");
+    Square square(100);
+    square.draw(ofs);
+    ofs.close();
+
+    REQUIRE(readFile() == "newpath\n50 50 translate\n/S 4 def /H 50 \ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\nclosepath\nstroke\n");
 }

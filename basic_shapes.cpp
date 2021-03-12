@@ -53,7 +53,7 @@ void Polygon::draw(std::ofstream &file) const
            << getWidth() / 2 << " " << getHeight() / 2 << " translate\n"
            << "/S " << _numSides << " def /H " << getHeight() / 2 << " \ndef"
            << " /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\n"
-           << "closepath\n stroke";
+           << "closepath\nstroke";
 
     file << output.rdbuf();
 }
@@ -72,3 +72,4 @@ void Rectangle::draw(std::ofstream &file) const
            << getWidth() / 2.0 << " " << getHeight() / 2.0 << " " << getWidth() << " " << getHeight() << " rectstroke \nstroke\n";
     file << output.rdbuf();
 }
+

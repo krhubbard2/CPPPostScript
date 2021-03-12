@@ -41,14 +41,14 @@ public:
 //     public:
 // };
 
-// class Square : public Shape{
-//     private:
-//     public:
-// };
+class Square : public Polygon{
+    public:
+        Square(const double & length): Polygon(4,length){}
+};
 
-// class Triangle : public Shape{
-//     private:
-//     public:
-// };
+class Triangle : public Polygon{
+    public:
+        Triangle(const double & length): Polygon(3, length){}
+};
 
 #endif
