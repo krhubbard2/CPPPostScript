@@ -36,10 +36,14 @@ public:
     void draw(std::ofstream &file) const;
 };
 
-// class Spacer : public Shape{
-//     private:
-//     public:
-// };
+class Spacer : public Shape{
+    private:
+        double _width;
+        double _height;
+    public:
+        Spacer(const double &width, const double &height) : _width(width),_height(height){};
+        void draw(std::ofstream &file) const;
+};
 
 class Square : public Polygon{
     public:

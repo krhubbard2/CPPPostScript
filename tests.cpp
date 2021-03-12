@@ -23,7 +23,7 @@ TEST_CASE("Draw a circle.")
     Circle circle(144);
     circle.draw(ofs);
     ofs.close();
-    REQUIRE(readFile() == "newpath\n144 144 144 0 360 arc \nstroke\n");
+    REQUIRE(readFile() == "gsave\nnewpath\n144 144 144 0 360 arc \nstroke\ngrestore\n");
 }
 TEST_CASE("Make sure a polygon has the correct size sides")
 {
@@ -40,7 +40,7 @@ TEST_CASE("Draw a rectangle")
     Rectangle rectangle(50, 100);
     rectangle.draw(ofs);
     ofs.close();
-    REQUIRE(readFile() == "newpath\n25 50 50 100 rectstroke \nstroke\n");
+    REQUIRE(readFile() == "gsave\nnewpath\n25 50 50 100 rectstroke \nstroke\ngrestore\n");
 }
 
 TEST_CASE("Draw a polygon.")
@@ -51,7 +51,7 @@ TEST_CASE("Draw a polygon.")
     polygon.draw(ofs);
     ofs.close();
 
-    REQUIRE(readFile() == "newpath\n50 50 translate\n/S 4 def /H 50 \ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\nclosepath\nstroke\n");
+    REQUIRE(readFile() == "gsave\nnewpath\n50 50 translate\n/S 4 def /H 50 \ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\nclosepath\nstroke\ngrestore\n");
 }
 
 TEST_CASE("Draw a triangle.")
@@ -62,7 +62,7 @@ TEST_CASE("Draw a triangle.")
     triangle.draw(ofs);
     ofs.close();
 
-    REQUIRE(readFile() == "newpath\n50 43.3013 translate\n/S 3 def /H 43.3013 \ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\nclosepath\nstroke\n");
+    REQUIRE(readFile() == "gsave\nnewpath\n50 43.3013 translate\n/S 3 def /H 43.3013 \ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\nclosepath\nstroke\ngrestore\n");
 }
 
 TEST_CASE("Draw a Square.")
@@ -73,5 +73,5 @@ TEST_CASE("Draw a Square.")
     square.draw(ofs);
     ofs.close();
 
-    REQUIRE(readFile() == "newpath\n50 50 translate\n/S 4 def /H 50 \ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\nclosepath\nstroke\n");
+    REQUIRE(readFile() == "gsave\nnewpath\n50 50 translate\n/S 4 def /H 50 \ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\nclosepath\nstroke\ngrestore\n");
 }

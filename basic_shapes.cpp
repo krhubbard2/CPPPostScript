@@ -16,8 +16,8 @@ void Circle::draw(std::ofstream &file) const
 {
     stringstream output;
 
-    output << "newpath\n"
-           << getHeight() / 2.0 << " " << getWidth() / 2.0 << " " << _radius << " 0 360 arc \nstroke\n";
+    output << "gsave\nnewpath\n"
+           << getHeight() / 2.0 << " " << getWidth() / 2.0 << " " << _radius << " 0 360 arc \nstroke\ngrestore\n";
     file << output.rdbuf();
 }
 
@@ -49,11 +49,11 @@ void Polygon::draw(std::ofstream &file) const
 {
     stringstream output;
     // Magic code -- This code below... draws a polygon?
-    output << "newpath\n"
+    output << "gsave\nnewpath\n"
            << getWidth() / 2 << " " << getHeight() / 2 << " translate\n"
            << "/S " << _numSides << " def /H " << getHeight() / 2 << " \ndef"
            << " /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } repeat\n"
-           << "closepath\nstroke";
+           << "closepath\nstroke\ngrestore\n";
 
     file << output.rdbuf();
 }
@@ -68,8 +68,14 @@ void Rectangle::draw(std::ofstream &file) const
 {
     stringstream output;
 
-    output << "newpath\n"
-           << getWidth() / 2.0 << " " << getHeight() / 2.0 << " " << getWidth() << " " << getHeight() << " rectstroke \nstroke\n";
+    output << "gsave\nnewpath\n"
+           << getWidth() / 2.0 << " " << getHeight() / 2.0 << " " << getWidth() << " " << getHeight() << " rectstroke \nstroke\ngrestore\n";
     file << output.rdbuf();
 }
 
+void Spacer::draw(std::ofstream &file) const
+{
+    stringstream output;
+    output << "";
+    file << output.rdbuf();
+}
