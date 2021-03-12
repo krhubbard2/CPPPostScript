@@ -34,8 +34,14 @@ TEST_CASE("Make sure a polygon has the correct size sides") {
 }
 
 TEST_CASE("Draw a rectangle") {
-    
+    std::ofstream ofs;
+    ofs.open("build_test.ps");
+    Rectangle rectangle(50,100);
+    rectangle.draw(ofs);
+    ofs.close();
+    REQUIRE(readFile() == "newpath\n25 50 50 100 rectstroke \nstroke\n");
 }
+
 // TEST_CASE("Draw a polygon.")
 // {
 //     std::ofstream ofs;

@@ -44,4 +44,14 @@ void Polygon::draw(std::ofstream &file) const {
      
 }
 
-Rectangle::Rectangle(const double & width, const double & height)
+Rectangle::Rectangle(const double & width, const double & height){
+    setWidth(width);
+    setHeight(height);
+}
+
+void Rectangle::draw(std::ofstream &file) const {
+    stringstream output;
+
+    output << "newpath\n" << getWidth()/2.0 << " " << getHeight()/2.0 << " " << getWidth() << " " << getHeight() << " rectstroke \nstroke\n";
+    file << output.rdbuf();
+}
