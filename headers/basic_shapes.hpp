@@ -21,12 +21,14 @@ class Polygon : public Shape{
         void draw(std::ofstream &file) const;
 };
 
-// class Rectangle : public Shape{
-//     private:
-//         double _width;
-//         double _height;
-//     public:
-// };
+class Rectangle : public Shape{
+    private:
+        double _width;
+        double _height;
+    public:
+        Rectangle(const double & width, const double & height);
+        void draw(std::ofstream &file) const;
+};
 
 // class Spacer : public Shape{
 //     private:
