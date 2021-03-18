@@ -20,4 +20,4 @@ jobs:
           cd build/
           cmake ../.
       - name: run tests
-        run: ./$GITHUB_WORKSPACE/build/tests
+        run: .$GITHUB_WORKSPACE/build/tests
