@@ -17,4 +17,4 @@ jobs:
       - name: run cmake
         run: cmake $GITHUB_WORKSPACE
       - name: run tests
-        run: .$GITHUB_WORKSPACE/test_suite
+        run: .$GITHUB_WORKSPACE/../test_suite
