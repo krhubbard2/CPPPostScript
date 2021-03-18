@@ -15,6 +15,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: run cmake
-        run: cmake $GITHUB_WORKSPACE
+        run: |
+          cd $GITHUB_WORKSPACE 
+          cmake build/
       - name: run tests
-        run: .$GITHUB_WORKSPACE/../test_suite
+        run: |
+          cd $GITHUB_WORKSPACE/build
+          ./test_suite
