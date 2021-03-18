@@ -1,4 +1,5 @@
 #include "../src/headers/basic_shapes.hpp"
+#include "../src/headers/complex_shapes.hpp"
 #include "../src/headers/shape.hpp"
 #include <catch2/catch.hpp>
 #include <fstream>
@@ -63,4 +64,18 @@ TEST_CASE("Draw a Square.") {
           "def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 "
           "moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } "
           "repeat\nclosepath\nstroke\ngrestore\n");
+}
+
+TEST_CASE("Rotate a Triangle") {
+  auto triangle = std::make_unique<Triangle>(50);
+
+  Rotated rotated(std::move(triangle), Rotated::ninety);
+  std::ostringstream output;
+  rotated.draw(output);
+  REQUIRE(output.str() ==
+      "gsave\n25 21.6506 translate\n90 rotate\n-25 -21.6506 "
+      "translate\ngsave\nnewpath\n25 21.6506 translate\n/S 3 def /H 21.6506 "
+      "\ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate "
+      "-90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div "
+      "add def } repeat\nclosepath\nstroke\ngrestore\n\ngrestore");
 }
