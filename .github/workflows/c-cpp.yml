@@ -17,6 +17,7 @@ jobs:
       - name: run cmake
         run: |
           cd $GITHUB_WORKSPACE 
+          cmake .
           cmake --build .
       - name: run tests
         run: |
