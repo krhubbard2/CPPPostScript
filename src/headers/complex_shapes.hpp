@@ -4,6 +4,10 @@
 #include "shape.hpp"
 #include <fstream>
 #include <memory>
+#include <iostream>
+#include <vector>
+#include <initializer_list>
+
 class Rotated : public Shape {
 public:
   enum RotationAngle { ninety = 90, oneeighty = 180, twoseventy = 270 };
@@ -25,5 +29,19 @@ public:
   void draw(std::ostream &file) const;
 };
 
+class Layered : public Shape {
+  private:
+    //std::vector<std::unique_ptr<Shape>> _shapes;
+    std::vector<std::reference_wrapper<const Shape>> _shapeRef;
+  public:
+    Layered(std::vector<std::reference_wrapper<Shape>> *shapeRef) : _shapeRef(std::move(shapeRef)) {}
+    
+    // Layered(std::initializer_list<Shape> shapes){ 
+    //   for(const auto & shape: shapes) {
+    //     std::cout << shape.getHeight() << std::endl;
+    //   }
+    // };
+    void draw(std::ostream &file) const {};
+};
 
 #endif

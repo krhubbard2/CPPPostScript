@@ -5,6 +5,7 @@
 #include <fstream>
 #include <math.h>
 #include <sstream>
+#include <initializer_list>
 
 TEST_CASE("Draw a circle.") {
   std::ostringstream output;
@@ -92,4 +93,14 @@ TEST_CASE("Scale a Triangle"){
       "\ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate "
       "-90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div "
       "add def } repeat\nclosepath\nstroke\ngrestore\n\ngrestore");
+}
+
+TEST_CASE("Layered Shapes") {
+  auto triangle = std::make_unique<Triangle>(50);
+  auto square = std::make_unique<Square>(100);
+  // std::initializer_list<Shape> shapes(triangle,square);
+  std::vector<std::reference_wrapper<Shape>> shapes1{triangle,square};
+
+  //std::vector<std::unique_ptr<Shape>> shapes{std::move(triangle),std::move(square)};
+  Layered layered(shapes1);
 }
