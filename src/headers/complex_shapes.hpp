@@ -3,14 +3,17 @@
 
 #include "shape.hpp"
 #include <fstream>
-
+#include <memory>
 class Rotated : public Shape {
-private:
-  double _radius;
-
 public:
   enum RotationAngle { ninety = 90, oneeighty = 180, twoseventy = 270 };
-  Rotated(Shape &shape, RotationAngle rotationAngle);
-  void draw(std::ofstream &file) const;
+private:
+  RotationAngle _rotationAngle;
+  std::unique_ptr<Shape> _shape;
+public:
+  Rotated(std::unique_ptr<Shape> shape, RotationAngle rotationAngle): _shape(std::move(shape)),_rotationAngle(rotationAngle) {};
+  void draw(std::ostream &file) const;
 };
+
+
 #endif
