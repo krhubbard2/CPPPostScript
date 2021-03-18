@@ -4,13 +4,13 @@
 #include "shape.hpp"
 #include <fstream>
 
-class Rotated : public Shape
-{
+class Rotated : public Shape {
 private:
-    double _radius;
+  double _radius;
 
 public:
-    Rotated(Shape &shape, double rotationAngle);
-    void draw(std::ofstream &file) const;
+  enum RotationAngle { ninety = 90, oneeighty = 180, twoseventy = 270 };
+  Rotated(Shape &shape, RotationAngle rotationAngle);
+  void draw(std::ofstream &file) const;
 };
 #endif
