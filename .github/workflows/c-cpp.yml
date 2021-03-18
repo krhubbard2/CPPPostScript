@@ -12,8 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: make
-      run: make
-    - name: Run tests
-      run: ./main
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: run cmake
+        run: cmake $GITHUB_WORKSPACE
+      - name: run tests
+        run: ./tests
