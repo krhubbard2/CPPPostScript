@@ -12,5 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Build CMake
-        uses: ashutoshvarma/action-cmake-build@v1
+      - name: install-cmake
+        uses: Symbitic/install-cmake@v0.1.0
+      - name: run cmake
+        run: cmake build/
+      - name: run tests
+        run: ./build/tests
