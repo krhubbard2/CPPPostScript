@@ -15,6 +15,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: run cmake
-        run: cmake .
+        run: cmake build/
       - name: run tests
-        run: ./tests
+        run: ./build/tests
