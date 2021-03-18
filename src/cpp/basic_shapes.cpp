@@ -13,7 +13,7 @@ Circle::Circle(const double &radius) : _radius(radius)
     setWidth(radius * 2);
 }
 
-void Circle::draw(std::ofstream &file) const
+void Circle::draw(std::ostream &file) const
 {
     stringstream output;
 
@@ -46,7 +46,7 @@ Polygon::Polygon(const int &numberSides, const double &sideLength) : _numSides(n
         setWidth(width);
     }
 }
-void Polygon::draw(std::ofstream &file) const
+void Polygon::draw(std::ostream &file) const
 {
     stringstream output;
     // Magic code -- This code below... draws a polygon?
@@ -65,7 +65,7 @@ Rectangle::Rectangle(const double &width, const double &height)
     setHeight(height);
 }
 
-void Rectangle::draw(std::ofstream &file) const
+void Rectangle::draw(std::ostream &file) const
 {
     stringstream output;
 
@@ -74,7 +74,7 @@ void Rectangle::draw(std::ofstream &file) const
     file << output.rdbuf();
 }
 
-void Spacer::draw(std::ofstream &file) const
+void Spacer::draw(std::ostream &file) const
 {
     stringstream output;
     output << "";

@@ -14,7 +14,7 @@ public:
     double getWidth() const;
     void setHeight(const double &height);
     void setWidth(const double &width);
-    virtual void draw(std::ofstream &file) const = 0;
+    virtual void draw(std::ostream &file) const = 0;
     virtual ~Shape() = default;
 };
 

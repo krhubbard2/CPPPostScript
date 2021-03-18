@@ -11,7 +11,7 @@ private:
 
 public:
     Circle(const double &radius);
-    void draw(std::ofstream &file) const;
+    void draw(std::ostream &file) const;
 };
 
 class Polygon : public Shape
@@ -22,7 +22,7 @@ private:
 
 public:
     Polygon(const int &numberSides, const double &sideLength);
-    void draw(std::ofstream &file) const;
+    void draw(std::ostream &file) const;
 };
 
 class Rectangle : public Shape
@@ -33,7 +33,7 @@ private:
 
 public:
     Rectangle(const double &width, const double &height);
-    void draw(std::ofstream &file) const;
+    void draw(std::ostream &file) const;
 };
 
 class Spacer : public Shape{
@@ -42,7 +42,7 @@ class Spacer : public Shape{
         double _height;
     public:
         Spacer(const double &width, const double &height) : _width(width),_height(height){};
-        void draw(std::ofstream &file) const;
+        void draw(std::ostream &file) const;
 };
 
 class Square : public Polygon{
