@@ -79,3 +79,17 @@ TEST_CASE("Rotate a Triangle") {
       "-90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div "
       "add def } repeat\nclosepath\nstroke\ngrestore\n\ngrestore");
 }
+
+TEST_CASE("Scale a Triangle"){
+  auto triangle = std::make_unique<Triangle>(50);
+
+  Scaled scaled(std::move(triangle), 5, 5);
+  std::ostringstream output;
+  scaled.draw(output);
+  REQUIRE(output.str() ==
+      "gsave\n5 5 scale\n"
+      "gsave\nnewpath\n25 21.6506 translate\n/S 3 def /H 21.6506 "
+      "\ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate "
+      "-90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div "
+      "add def } repeat\nclosepath\nstroke\ngrestore\n\ngrestore");
+}

@@ -11,7 +11,17 @@ private:
   RotationAngle _rotationAngle;
   std::unique_ptr<Shape> _shape;
 public:
-  Rotated(std::unique_ptr<Shape> shape, RotationAngle rotationAngle): _shape(std::move(shape)),_rotationAngle(rotationAngle) {};
+  Rotated(std::unique_ptr<Shape> shape, const RotationAngle &rotationAngle): _shape(std::move(shape)),_rotationAngle(rotationAngle) {};
+  void draw(std::ostream &file) const;
+};
+
+class Scaled : public Shape {
+private:
+  std::unique_ptr<Shape> _shape;
+  double _fx;
+  double _fy;
+public:
+  Scaled(std::unique_ptr<Shape> shape, const double &fx, const double &fy) : _shape(std::move(shape)), _fx(fx), _fy(fy) {};
   void draw(std::ostream &file) const;
 };
 
