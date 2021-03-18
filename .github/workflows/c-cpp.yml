@@ -13,6 +13,6 @@ jobs:
 
     steps:
       - name: run cmake
-        run: cmake build/
+        run: cmake .
       - name: run tests
-        run: ./build/tests
+        run: ./tests
