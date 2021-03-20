@@ -4,7 +4,7 @@ using std::stringstream;
 
 void Rotated::draw(std::ostream &file) const {
   stringstream output;
-  output << "gsave\n" << _shape->getWidth()/2 << " " << _shape->getHeight()/2 << " translate\n"
+  output << "gsave\n"  << _shape->getWidth()/2 << " " << _shape->getHeight()/2 << " translate\n"
          << _rotationAngle << " rotate\n" <<
           "-" << _shape->getWidth()/2 << " -" << _shape->getHeight()/2 << " translate\n";
           _shape->draw(output);
@@ -21,6 +21,6 @@ void Scaled::draw(std::ostream &file) const {
 }
 void Layered::draw(std::ostream &file) const {
   for(const auto &shape: _shapes) {
-    std::cout << shape->getHeight() << std::endl;
+    shape->draw(file);
   }
 }
