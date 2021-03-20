@@ -96,11 +96,11 @@ TEST_CASE("Scale a Triangle"){
 }
 
 TEST_CASE("Layered Shapes") {
-  auto triangle = std::make_unique<Triangle>(50);
-  auto square = std::make_unique<Square>(100);
-  // std::initializer_list<Shape> shapes(triangle,square);
-  std::vector<std::reference_wrapper<Shape>> shapes1{triangle,square};
-
-  //std::vector<std::unique_ptr<Shape>> shapes{std::move(triangle),std::move(square)};
-  Layered layered(shapes1);
+  auto triangle = std::make_shared<Triangle>(50);
+  auto square = std::make_shared<Square>(100);
+  
+  std::vector<std::shared_ptr<Shape>> shapes = {triangle,square}; 
+  Layered layered(shapes);
+  std::ostringstream output;
+  layered.draw(output);
 }

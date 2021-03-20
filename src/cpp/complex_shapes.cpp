@@ -19,3 +19,8 @@ void Scaled::draw(std::ostream &file) const {
     output << "\ngrestore";
     file << output.rdbuf();
 }
+void Layered::draw(std::ostream &file) const {
+  for(const auto &shape: _shapes) {
+    std::cout << shape->getHeight() << std::endl;
+  }
+}
