@@ -77,9 +77,9 @@ TEST_CASE("Draw a Square.") {
 // *********************************************************************
 
 TEST_CASE("Rotate a Triangle") {
-  auto triangle = std::make_unique<Triangle>(50);
+  auto triangle = std::make_shared<Triangle>(50);
 
-  Rotated rotated(std::move(triangle), Rotated::ninety);
+  Rotated rotated(triangle, Rotated::ninety);
   std::ostringstream output;
   rotated.draw(output);
   REQUIRE(
@@ -92,9 +92,9 @@ TEST_CASE("Rotate a Triangle") {
 }
 
 TEST_CASE("Scale a Triangle") {
-  auto triangle = std::make_unique<Triangle>(50);
+  auto triangle = std::make_shared<Triangle>(50);
 
-  Scaled scaled(std::move(triangle), 5, 5);
+  Scaled scaled(triangle, 5, 5);
   std::ostringstream output;
   scaled.draw(output);
   REQUIRE(

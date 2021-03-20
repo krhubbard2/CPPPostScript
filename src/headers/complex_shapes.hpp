@@ -13,34 +13,56 @@ public:
 
 private:
   RotationAngle _rotationAngle;
-  std::unique_ptr<Shape> _shape;
+  std::shared_ptr<Shape> _shape;
 
 public:
-  Rotated(std::unique_ptr<Shape> shape, const RotationAngle &rotationAngle)
-      : _shape(std::move(shape)), _rotationAngle(rotationAngle){};
+  Rotated(std::shared_ptr<Shape> shape, const RotationAngle &rotationAngle)
+      : _shape(shape), _rotationAngle(rotationAngle){
+        setHeight(shape->getHeight());
+        setWidth(shape->getWidth());
+      };
   void draw(std::ostream &file) const;
 };
 
 class Scaled : public Shape {
 private:
-  std::unique_ptr<Shape> _shape;
+  std::shared_ptr<Shape> _shape;
   double _fx;
   double _fy;
 
 public:
-  Scaled(std::unique_ptr<Shape> shape, const double &fx, const double &fy)
-      : _shape(std::move(shape)), _fx(fx), _fy(fy){};
+  Scaled(std::shared_ptr<Shape> shape, const double &fx, const double &fy)
+      : _shape(shape), _fx(fx), _fy(fy){
+        setWidth(shape->getWidth() * fx);
+        setHeight(shape->getHeight() * fy);
+      };
   void draw(std::ostream &file) const;
 };
 
 class Layered : public Shape {
 private:
   std::vector<std::shared_ptr<Shape>> _shapes;
+
 public:
-  Layered(const std::vector<std::shared_ptr<Shape>> &shapes) {
-    _shapes = shapes;
-  };
+  Layered(const std::vector<std::shared_ptr<Shape>> &shapes);
   void draw(std::ostream &file) const;
 };
 
+class Vertical : public Shape {
+private:
+  std::vector<std::shared_ptr<Shape>> _shapes;
+
+public:
+  Vertical(const std::vector<std::shared_ptr<Shape>> &shapes);
+  void draw(std::ostream &file) const;
+};
+
+class Horizontal : public Shape {
+private:
+  std::vector<std::shared_ptr<Shape>> _shapes;
+
+public:
+  Horizontal(const std::vector<std::shared_ptr<Shape>> &shapes);
+  void draw(std::ostream &file) const;
+};
 #endif
