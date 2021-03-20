@@ -108,10 +108,10 @@ TEST_CASE("Scale a Triangle") {
 
 TEST_CASE("Layered Shapes") {
   auto triangle = std::make_shared<Triangle>(50);
-  auto square = std::make_shared<Rectangle>(100, 150);
+  auto rectangle = std::make_shared<Rectangle>(100, 150);
   auto triangle2 = std::make_shared<Triangle>(100);
 
-  std::vector<std::shared_ptr<Shape>> shapes = {triangle, square, triangle2};
+  std::vector<std::shared_ptr<Shape>> shapes = {triangle, rectangle, triangle2};
   Layered layered(shapes);
   std::ostringstream output;
   setCursor(output, 200.0, 200.0);
@@ -130,4 +130,32 @@ TEST_CASE("Layered Shapes") {
           "rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A "
           "360 S div add def } repeat\n"
           "closepath\nstroke\ngrestore\n");
+}
+
+TEST_CASE("Horizontal Drawing") {
+  // auto triangle = std::make_shared<Triangle>(50);
+  // auto rectangle = std::make_shared<Rectangle>(100, 150);
+  // auto triangle2 = std::make_shared<Triangle>(100);
+
+  // std::vector<std::shared_ptr<Shape>> shapes = {triangle, triangle, triangle2};
+  // Horizontal horizontal(shapes);
+  // // std::ostringstream output;
+  // std::ofstream output("testing.ps");
+  // setCursor(output, 200.0, 200.0);
+  // horizontal.draw(output);
+
+}
+
+TEST_CASE("Vertical Drawing") {
+  auto triangle = std::make_shared<Circle>(45);
+  auto rectangle = std::make_shared<Triangle>(60);
+  auto triangle2 = std::make_shared<Rectangle>(100,50);
+  auto triangle3 = std::make_shared<Circle>(50);
+
+  std::vector<std::shared_ptr<Shape>> shapes = {triangle, rectangle, triangle2, triangle3};
+  Vertical vertical(shapes);
+  // std::ostringstream output;
+  std::ofstream output("testing.ps");
+  setCursor(output, 200.0, 200.0);
+  vertical.draw(output);
 }

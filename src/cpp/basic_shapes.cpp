@@ -24,27 +24,30 @@ void Circle::draw(std::ostream &file) const {
 Polygon::Polygon(const int &numberSides, const double &sideLength)
     : _numSides(numberSides), _sideLength(sideLength) {
   if (numberSides % 2 == 1) {
-    double height = sideLength * (1 + cos(M_PI / numberSides)) /
-                    (2 * sin(M_PI / numberSides));
+    double height = (sideLength * (1 + cos(M_PI / numberSides)) /
+                    (2 * sin(M_PI / numberSides)));
     setHeight(height);
     double width =
         (sideLength * sin((M_PI * (numberSides - 1)) / (2 * numberSides)) /
          (sin(M_PI / numberSides)));
     setWidth(width);
+
   } else if (numberSides % 4 == 0) {
     double height =
-        sideLength * (cos(M_PI / numberSides)) / (sin(M_PI / numberSides));
+        (sideLength * (cos(M_PI / numberSides)) / (sin(M_PI / numberSides)));
     setHeight(height);
     double width =
         (sideLength * cos(M_PI / numberSides)) / (sin(M_PI / numberSides));
     setWidth(width);
+
   } else {
-    double height = sideLength * (cos(M_PI)) / (sin(M_PI / sideLength));
+    double height = (sideLength * (cos(M_PI / numberSides)) / (sin(M_PI / numberSides)));
     setHeight(height);
-    double width = sideLength / (sin(M_PI / sideLength));
+    double width = (sideLength / (sin(M_PI / numberSides)));
     setWidth(width);
   }
 }
+
 void Polygon::draw(std::ostream &file) const {
   stringstream output;
   // Magic code -- This code below... draws a polygon?

@@ -54,9 +54,11 @@ Vertical::Vertical(const std::vector<std::shared_ptr<Shape>> &shapes) {
 void Vertical::draw(std::ostream &file) const {
   stringstream output;
   for (const auto &shape : _shapes) {
+    output << "0 " << shape->getHeight()/2 << " translate\n";
     shape->draw(output);
-    output << "0 " << shape->getHeight() << " translate\n";
+    output << "0 " << shape->getHeight()/2 << " translate\n";
   }
+  file << output.str();
 }
 
 Horizontal::Horizontal(const std::vector<std::shared_ptr<Shape>> &shapes) {
@@ -72,8 +74,10 @@ Horizontal::Horizontal(const std::vector<std::shared_ptr<Shape>> &shapes) {
 void Horizontal::draw(std::ostream &file) const {
   stringstream output;
   for (const auto &shape : _shapes) {
+    output << shape->getWidth()/2 << " 0 translate\n";
     shape->draw(output);
-    output << shape->getWidth() << " 0 "
+    output << shape->getWidth()/2 << " 0 "
            << "translate\n";
   }
+  file << output.str();
 }
