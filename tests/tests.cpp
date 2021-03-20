@@ -1,11 +1,16 @@
 #include "../src/headers/basic_shapes.hpp"
 #include "../src/headers/complex_shapes.hpp"
+#include "../src/headers/interface.hpp"
 #include "../src/headers/shape.hpp"
 #include <catch2/catch.hpp>
 #include <fstream>
 #include <initializer_list>
 #include <math.h>
 #include <sstream>
+
+// *********************************************************************
+// Simple Shapes Tests
+// *********************************************************************
 
 TEST_CASE("Draw a circle.") {
   std::ostringstream output;
@@ -67,6 +72,10 @@ TEST_CASE("Draw a Square.") {
           "repeat\nclosepath\nstroke\ngrestore\n");
 }
 
+// *********************************************************************
+// Complex Shapes Tests
+// *********************************************************************
+
 TEST_CASE("Rotate a Triangle") {
   auto triangle = std::make_unique<Triangle>(50);
 
@@ -98,13 +107,27 @@ TEST_CASE("Scale a Triangle") {
 }
 
 TEST_CASE("Layered Shapes") {
-  // auto triangle = std::make_shared<Triangle>(50);
-  // auto square = std::make_shared<Rectangle>(100,150);
-  // auto triangle2 = std::make_shared<Triangle>(100);
+  auto triangle = std::make_shared<Triangle>(50);
+  auto square = std::make_shared<Rectangle>(100, 150);
+  auto triangle2 = std::make_shared<Triangle>(100);
 
-  // std::vector<std::shared_ptr<Shape>> shapes = {triangle,square,triangle2};
-  // Layered layered(shapes);
-  // std::ofstream output("testing.ps");
-  // layered.draw(output);
-  // output.close();
+  std::vector<std::shared_ptr<Shape>> shapes = {triangle, square, triangle2};
+  Layered layered(shapes);
+  std::ostringstream output;
+  setCursor(output, 200.0, 200.0);
+  layered.draw(output);
+  REQUIRE(output.str() ==
+          "200 200 translate\ngsave\nnewpath\n"
+          "/S 3 def /H 21.6506 \n"
+          "def /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan "
+          "rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A "
+          "360 S div add def } repeat\n"
+          "closepath\nstroke\ngrestore\ngsave\nnewpath\n"
+          "-50 -75 100 150 rectstroke \n"
+          "stroke\ngrestore\ngsave\nnewpath\n"
+          "/S 3 def /H 43.3013 \n"
+          "def /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan "
+          "rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A "
+          "360 S div add def } repeat\n"
+          "closepath\nstroke\ngrestore\n");
 }
