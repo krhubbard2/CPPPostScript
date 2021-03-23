@@ -2,6 +2,7 @@
 #include "../src/headers/complex_shapes.hpp"
 #include "../src/headers/interface.hpp"
 #include "../src/headers/shape.hpp"
+#include "../src/headers/unique_shapes.hpp"
 #include <catch2/catch.hpp>
 #include <fstream>
 #include <initializer_list>
@@ -133,9 +134,9 @@ TEST_CASE("Layered Shapes") {
 }
 
 TEST_CASE("Horizontal Drawing") {
-  // auto triangle = std::make_shared<Triangle>(50);
-  // auto rectangle = std::make_shared<Rectangle>(100, 150);
-  // auto triangle2 = std::make_shared<Triangle>(100);
+  // auto triangle = std::make_shared<Rectangle>(30, 150);
+  // auto rectangle = std::make_shared<Rectangle>(50, 198);
+  // auto triangle2 = std::make_shared<Rectangle>(20, 175);
 
   // std::vector<std::shared_ptr<Shape>> shapes = {triangle, triangle, triangle2};
   // Horizontal horizontal(shapes);
@@ -147,16 +148,22 @@ TEST_CASE("Horizontal Drawing") {
 }
 
 TEST_CASE("Vertical Drawing") {
-  auto triangle = std::make_shared<Circle>(45);
-  auto rectangle = std::make_shared<Triangle>(60);
-  auto square = std::make_shared<Square>(60);
-  auto triangle2 = std::make_shared<Rectangle>(100,50);
-  auto triangle3 = std::make_shared<Circle>(50);
+  // auto triangle = std::make_shared<Circle>(45);
+  // auto rectangle = std::make_shared<Triangle>(60);
+  // auto square = std::make_shared<Square>(60);
+  // auto triangle2 = std::make_shared<Rectangle>(100,50);
+  // auto triangle3 = std::make_shared<Circle>(50);
 
-  std::vector<std::shared_ptr<Shape>> shapes = {triangle, rectangle, triangle2, triangle3,square};
-  Vertical vertical(shapes);
-  // std::ostringstream output;
+  // std::vector<std::shared_ptr<Shape>> shapes = {triangle, rectangle, triangle2, triangle3,square};
+  // Vertical vertical(shapes);
+  // // std::ostringstream output;
+  // std::ofstream output("testing.ps");
+  // setCursor(output, 200.0, 200.0);
+  // vertical.draw(output);
+}
+
+TEST_CASE("Hamburger drawing") {
+  Hamburger hamburger(2,1,1);
   std::ofstream output("testing.ps");
-  setCursor(output, 200.0, 200.0);
-  vertical.draw(output);
+  hamburger.draw(output);
 }
