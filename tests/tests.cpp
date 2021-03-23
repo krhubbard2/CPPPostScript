@@ -149,10 +149,11 @@ TEST_CASE("Horizontal Drawing") {
 TEST_CASE("Vertical Drawing") {
   auto triangle = std::make_shared<Circle>(45);
   auto rectangle = std::make_shared<Triangle>(60);
+  auto square = std::make_shared<Square>(60);
   auto triangle2 = std::make_shared<Rectangle>(100,50);
   auto triangle3 = std::make_shared<Circle>(50);
 
-  std::vector<std::shared_ptr<Shape>> shapes = {triangle, rectangle, triangle2, triangle3};
+  std::vector<std::shared_ptr<Shape>> shapes = {triangle, rectangle, triangle2, triangle3,square};
   Vertical vertical(shapes);
   // std::ostringstream output;
   std::ofstream output("testing.ps");
