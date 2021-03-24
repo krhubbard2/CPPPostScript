@@ -43,9 +43,9 @@ TEST_CASE("Draw a polygon.") {
   polygon.draw(output);
 
   REQUIRE(output.str() ==
-          "gsave\nnewpath\n/S 4 def /H 50 \ndef /A 360 S div "
-          "def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 "
-          "moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } "
+          "gsave\n/u 100 def \n/lw 1 u div def \n/n 4 def\n/da 360 n div def "
+          "\n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn "
+          "1 sub {/a a da add def \n  a cos a sin lineto \n} "
           "repeat\nclosepath\nstroke\ngrestore\n");
 }
 
@@ -55,10 +55,10 @@ TEST_CASE("Draw a triangle.") {
   triangle.draw(output);
 
   REQUIRE(output.str() ==
-          "gsave\nnewpath\n/S 3 def /H 43.3013 \ndef /A "
-          "360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate -90 "
-          "rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div "
-          "add def } repeat\nclosepath\nstroke\ngrestore\n");
+          "gsave\n/u 100 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def "
+          "\n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn "
+          "1 sub {/a a da add def \n  a cos a sin lineto \n} "
+          "repeat\nclosepath\nstroke\ngrestore\n");
 }
 
 TEST_CASE("Draw a Square.") {
@@ -67,9 +67,9 @@ TEST_CASE("Draw a Square.") {
   square.draw(output);
 
   REQUIRE(output.str() ==
-          "gsave\nnewpath\n/S 4 def /H 50 \ndef /A 360 S div "
-          "def A cos H mul H sub A sin H mul 0 sub atan rotate -90 rotate H 0 "
-          "moveto S{ A cos H mul A sin H mul lineto /A A 360 S div add def } "
+          "gsave\n/u 100 def \n/lw 1 u div def \n/n 4 def\n/da 360 n div def "
+          "\n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn "
+          "1 sub {/a a da add def \n  a cos a sin lineto \n} "
           "repeat\nclosepath\nstroke\ngrestore\n");
 }
 
@@ -83,87 +83,109 @@ TEST_CASE("Rotate a Triangle") {
   Rotated rotated(triangle, Rotated::ninety);
   std::ostringstream output;
   rotated.draw(output);
-  REQUIRE(
-      output.str() ==
-      "gsave\n25 21.6506 translate\n90 rotate\n-25 -21.6506 "
-      "translate\ngsave\nnewpath\n/S 3 def /H 21.6506 "
-      "\ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate "
-      "-90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div "
-      "add def } repeat\nclosepath\nstroke\ngrestore\n\ngrestore");
+  REQUIRE(output.str() ==
+          "gsave\n25 21.6506 translate\n90 rotate\n-25 -21.6506 "
+          "translate\ngsave\n/u 50 def \n/lw 1 u div def \n/n 3 def\n/da 360 n "
+          "div def \n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 "
+          "moveto\nn 1 sub {/a a da add def \n  a cos a sin lineto \n} "
+          "repeat\nclosepath\nstroke\ngrestore\n\ngrestore");
 }
 
 TEST_CASE("Scale a Triangle") {
-  auto triangle = std::make_shared<Triangle>(50);
+  auto triangle = makeTriangle(50);
 
   Scaled scaled(triangle, 5, 5);
   std::ostringstream output;
   scaled.draw(output);
-  REQUIRE(
-      output.str() ==
-      "gsave\n5 5 scale\n"
-      "gsave\nnewpath\n/S 3 def /H 21.6506 "
-      "\ndef /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan rotate "
-      "-90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A 360 S div "
-      "add def } repeat\nclosepath\nstroke\ngrestore\n\ngrestore");
+  REQUIRE(output.str() ==
+          "gsave\n5 5 scale\ngsave\n/u 50 def \n/lw 1 u div def \n/n 3 "
+          "def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth "
+          "\nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \n  a cos a sin "
+          "lineto \n} repeat\nclosepath\nstroke\ngrestore\ngrestore");
 }
 
 TEST_CASE("Layered Shapes") {
-  auto triangle = std::make_shared<Triangle>(50);
-  auto rectangle = std::make_shared<Rectangle>(100, 150);
-  auto triangle2 = std::make_shared<Triangle>(100);
+  auto triangle = makeTriangle(50);
+  auto rectangle = makeRectangle(100, 150);
+  auto triangle2 = makeTriangle(100);
 
   std::vector<std::shared_ptr<Shape>> shapes = {triangle, rectangle, triangle2};
   Layered layered(shapes);
   std::ostringstream output;
   setCursor(output, 200.0, 200.0);
   layered.draw(output);
-  REQUIRE(output.str() ==
-          "200 200 translate\ngsave\nnewpath\n"
-          "/S 3 def /H 21.6506 \n"
-          "def /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan "
-          "rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A "
-          "360 S div add def } repeat\n"
-          "closepath\nstroke\ngrestore\ngsave\nnewpath\n"
-          "-50 -75 100 150 rectstroke \n"
-          "stroke\ngrestore\ngsave\nnewpath\n"
-          "/S 3 def /H 43.3013 \n"
-          "def /A 360 S div def A cos H mul H sub A sin H mul 0 sub atan "
-          "rotate -90 rotate H 0 moveto S{ A cos H mul A sin H mul lineto /A A "
-          "360 S div add def } repeat\n"
-          "closepath\nstroke\ngrestore\n");
+  REQUIRE("200 200 translate\ngsave\n/u 50 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \na cos a sin lineto \n} repeat\nclosepath\nstroke\ngrestore\ngsave\nnewpath\n-50 -75 100 150 rectstroke \nstroke\ngrestore\ngsave\n/u 100 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \na cos a sin lineto \n} repeat\nclosepath\nstroke\ngrestore");
 }
 
 TEST_CASE("Horizontal Drawing") {
-  // auto triangle = std::make_shared<Rectangle>(30, 150);
-  // auto rectangle = std::make_shared<Rectangle>(50, 198);
-  // auto triangle2 = std::make_shared<Rectangle>(20, 175);
+  auto rectangle = makeRectangle(30, 150);
+  auto circle = makeCircle(50);
+  auto triangle = makeTriangle(60);
 
-  // std::vector<std::shared_ptr<Shape>> shapes = {triangle, triangle, triangle2};
-  // Horizontal horizontal(shapes);
-  // // std::ostringstream output;
-  // std::ofstream output("testing.ps");
-  // setCursor(output, 200.0, 200.0);
-  // horizontal.draw(output);
-
+  std::vector<std::shared_ptr<Shape>> shapes = {rectangle, circle, triangle};
+  Horizontal horizontal(shapes);
+  std::ostringstream output;
+  setCursor(output, 200.0, 200.0);
+  horizontal.draw(output);
+  REQUIRE(
+      output.str() ==
+      "200 200 translate\n15 0 translate\ngsave\nnewpath\n-15 -75 30 150 "
+      "rectstroke \nstroke\ngrestore\n15 0 translate\n50 0 "
+      "translate\ngsave\nnewpath\n0 0 50 0 360 arc \nstroke\ngrestore\n50 0 "
+      "translate\n30 0 translate\ngsave\n/u 60 def \n/lw 1 u div def \n/n 3 "
+      "def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth "
+      "\nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \n  a cos a sin lineto "
+      "\n} repeat\nclosepath\nstroke\ngrestore\n30 0 translate\n");
 }
 
 TEST_CASE("Vertical Drawing") {
-  // auto triangle = std::make_shared<Circle>(45);
-  // auto rectangle = std::make_shared<Triangle>(60);
-  // auto square = std::make_shared<Square>(60);
-  // auto triangle2 = std::make_shared<Rectangle>(100,50);
-  // auto triangle3 = std::make_shared<Circle>(50);
+  auto circle = makeCircle(45);
+  auto triangle = makeTriangle(60);
+  auto square = makeSquare(60);
+  auto rectangle = makeRectangle(100, 50);
+  auto circle2 = makeCircle(50);
 
-  // std::vector<std::shared_ptr<Shape>> shapes = {triangle, rectangle, triangle2, triangle3,square};
-  // Vertical vertical(shapes);
-  // // std::ostringstream output;
-  // std::ofstream output("testing.ps");
-  // setCursor(output, 200.0, 200.0);
-  // vertical.draw(output);
+  std::vector<std::shared_ptr<Shape>> shapes = {circle, triangle, square,
+                                                rectangle, circle2};
+  Vertical vertical(shapes);
+  std::ostringstream output;
+  setCursor(output, 200.0, 200.0);
+  vertical.draw(output);
+  REQUIRE(
+      output.str() ==
+      "200 200 translate\n0 45 translate\ngsave\nnewpath\n0 0 45 0 360 "
+      "arc \nstroke\ngrestore\n0 45 translate\n0 25.9808 translate\ngsave\n/u"
+      " 60 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def \n/a 90 def\nu "
+      "dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da "
+      "add def \n  a cos a sin lineto \n}"
+      " repeat\nclosepath\nstroke\ngrestore\n0 25.9808 translate\n0 30 "
+      "translate\ngsave\n/u 60 def \n/lw 1 u div def \n/n 4 def\n/da 360 n "
+      "div def \n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 "
+      "moveto\nn 1 sub {/a a da add def \n  a cos a sin lineto \n} "
+      "repeat\nclosepath\nstroke\ngrestore\n0 30 translate\n0 25 "
+      "translate\ngsave\nnewpath\n-50 -25 100 50 "
+      "rectstroke \nstroke\ngrestore\n0 25 translate\n0 50 "
+      "translate\ngsave\nnewpath\n0 0 50 0 360 arc \nstroke\ngrestore\n0 50 "
+      "translate\n");
 }
 
 TEST_CASE("Hamburger drawing") {
-  Hamburger hamburger(2,1,1);
-  std::ofstream output("testing.ps");
+  Hamburger hamburger(2, 1, 1);
+  std::ostringstream output;
+  setCursor(output, 200.0, 200.0);
   hamburger.draw(output);
+  REQUIRE(output.str() ==
+          "200 200 translate\n1.0 0.7 0.0 setrgbcolor fill\n0 15 "
+          "translate\ngsave\nnewpath\n-50 -15 100 30 "
+          "rectstroke \nstroke\ngrestore\n0 15 translate\n0.7 0.3 0.0 "
+          "setrgbcolor fill\n0 12.5 translate\ngsave\nnewpath\n-50 -12.5 100 "
+          "25 rectstroke \nstroke\ngrestore\n0 12.5 translate\n0.7 0.3 0.0 "
+          "setrgbcolor fill\n0 12.5 translate\ngsave\nnewpath\n-50 -12.5 100 "
+          "25 rectstroke \nstroke\ngrestore\n0 12.5 translate\n1.0 1.0 0.0 "
+          "setrgbcolor fill\n0 5 translate\ngsave\nnewpath\n-50 -5 100 10 "
+          "rectstroke \nstroke\ngrestore\n0 5 translate\n0.0 1.0 0.0 "
+          "setrgbcolor fill\n0 10 translate\ngsave\nnewpath\n-50 -10 100 20 "
+          "rectstroke \nstroke\ngrestore\n0 10 translate\n1.0 0.7 0.0 "
+          "setrgbcolor fill\n0 15 translate\ngsave\nnewpath\n-50 -15 100 30 "
+          "rectstroke \nstroke\ngrestore\n0 15 translate\n");
 }

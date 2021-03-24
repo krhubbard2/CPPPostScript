@@ -19,7 +19,7 @@ void Scaled::draw(std::ostream &file) const {
   stringstream output;
   output << "gsave\n" << _fx << " " << _fy << " scale\n";
   _shape->draw(output);
-  output << "\ngrestore";
+  output << "grestore";
   file << output.rdbuf();
 }
 

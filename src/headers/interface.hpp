@@ -15,4 +15,5 @@ std::shared_ptr<Square> makeSquare(const double &sideLength);
 
 // std::shared_ptr<Rotated> makeRotated(std::shared_ptr<Shape> shape, const RotationAngle &rotationAngle);
 std::shared_ptr<Scaled> makeScaled(std::shared_ptr<Shape> shape, const double &scaleFactor);
+std::shared_ptr<Scaled> makeScaled(std::vector<std::shared_ptr<Shape>> shape, const double &scaleFactor);
 #endif

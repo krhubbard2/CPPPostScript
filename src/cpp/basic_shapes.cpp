@@ -52,10 +52,10 @@ void Polygon::draw(std::ostream &file) const {
   stringstream output;
   output << "gsave\n"
          << "/u " << _sideLength
-         << " def % unit: 0.5 inch\n/lw 1 u div def \n/n " << _numSides
-         << " def\n/da 360 n div def % angle increment\n/a 90 def"
-         << "\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da add def % increase angle\n  "
-            "a cos a sin lineto % draw line\n} repeat\nclosepath\nstroke\ngrestore\n";
+         << " def \n/lw 1 u div def \n/n " << _numSides
+         << " def\n/da 360 n div def \n/a 90 def"
+         << "\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \n  "
+            "a cos a sin lineto \n} repeat\nclosepath\nstroke\ngrestore\n";
   file << output.rdbuf();
 }
 
