@@ -1,7 +1,7 @@
 # C++ to PostScript
 C++ to PostScript Translator 
 
-CPS (C++ to PostScript) is a C++ library which allows users to specify drawings at a high level abstraction (C++) and output drawings as PostScript.
+CPS (C++ to PostScript) is a C++ library that allows users to specify drawings at a high-level abstraction (C++) and output drawings as PostScript.
 
 ## Files in project src directory:
 | Name | Purpose |
@@ -36,10 +36,16 @@ int main() {
 ## Thoughts on PostScript
 
 ### Q: Is the language expressive enough?
-#### A: With polygons and circles, the shape seems like it could do a lot of things.
+#### A: With polygons and circles, the shape seems like it could do a lot of things. Partial shapes and filling shapes are not supported.
 ### Q: Are the shape abstractions well-designed, or not?
 #### A: 
 ### Q: Do the shape abstractions make certain drawings easy/difficult to create?
-#### A: 
+#### A: If you want precise/intricate shapes it will take a lot of effort to create. 
 ### Q: If we were to design the shape language from scratch, what would we do differently?
 #### A: 
+ - Allow colors 
+ - Allow filling of shapes
+ - Better cursor moving
+ - Look more closely at PostScript to see what options are available to us
+ - Find a better way to implement polygon
+ - Better testing process
