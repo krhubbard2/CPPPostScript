@@ -40,7 +40,7 @@ int main() {
 ### Q: Are the shape abstractions well-designed, or not?
 #### A: The shape abstractions allow developers to expand the language with new shapes.
 ### Q: Do the shape abstractions make certain drawings easy/difficult to create?
-#### A: If you want precise/intricate shapes it will take a lot of effort to create. 
+#### A: If you want precise/intricate shapes it will take time and effort to create. 
 ### Q: If we were to design the shape language from scratch, what would we do differently?
 #### A: 
  - Allow colors 
