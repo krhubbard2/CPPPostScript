@@ -1,11 +1,11 @@
 #include "../headers/interface.hpp"
-void setCursor(std::ostream &file, double x, double y) {
+void setCursor(std::ostream &file, const double &x, const double &y) {
   file << x << " " << y << " translate\n";
 }
 std::shared_ptr<Polygon> makePolygon(const int &numSides, const double &sideLength) {
     return std::make_shared<Polygon>(numSides, sideLength);
 }
-std::shared_ptr<Circle> makeCircle(double radius) {
+std::shared_ptr<Circle> makeCircle(const double &radius) {
   return std::make_shared<Circle>(radius);
 }
 std::shared_ptr<Triangle> makeTriangle(const double &sideLength) {

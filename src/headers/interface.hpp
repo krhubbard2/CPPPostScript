@@ -6,8 +6,8 @@
 #include <fstream>
 #include <iostream>
 
-void setCursor(std::ostream &file, double x, double y);
-std::shared_ptr<Circle> makeCircle(double radius);
+void setCursor(std::ostream &file, const double &x, const double &y);
+std::shared_ptr<Circle> makeCircle(const double &radius);
 std::shared_ptr<Polygon> makePolygon(const int &numSides, const double &sideLength);
 std::shared_ptr<Triangle> makeTriangle(const double &sideLength);
 std::shared_ptr<Rectangle> makeRectangle(const double &width, const double &height);
