@@ -15,23 +15,24 @@
 
 TEST_CASE("Draw a circle.") {
   std::ostringstream output;
-  Circle circle(144);
-  circle.draw(output);
+  // Circle circle(144);
+  auto circle = makeCircle(144);
+  circle->draw(output);
 
   REQUIRE(output.str() ==
           "gsave\nnewpath\n0 0 144 0 360 arc \nstroke\ngrestore\n");
 }
 TEST_CASE("Make sure a polygon has the correct size sides") {
-  Polygon polygon1(4, 4.0);
+  auto polygon = makePolygon(4, 4.0);
 
-  REQUIRE(polygon1.getHeight() - 4.0 < 0.01);
-  REQUIRE(polygon1.getWidth() - 4.0 < 0.01);
+  REQUIRE(polygon->getHeight() - 4.0 < 0.01);
+  REQUIRE(polygon->getWidth() - 4.0 < 0.01);
 }
 
 TEST_CASE("Draw a rectangle") {
   std::ostringstream output;
-  Rectangle rectangle(50, 100);
-  rectangle.draw(output);
+  auto rectangle = makeRectangle(50,100);
+  rectangle->draw(output);
 
   REQUIRE(output.str() ==
           "gsave\nnewpath\n-25 -50 50 100 rectstroke \nstroke\ngrestore\n");
@@ -39,8 +40,8 @@ TEST_CASE("Draw a rectangle") {
 
 TEST_CASE("Draw a polygon.") {
   std::ostringstream output;
-  Polygon polygon(4, 100);
-  polygon.draw(output);
+  auto polygon = makePolygon(4,100);
+  polygon->draw(output);
 
   REQUIRE(output.str() ==
           "gsave\n/u 100 def \n/lw 1 u div def \n/n 4 def\n/da 360 n div def "
@@ -51,8 +52,8 @@ TEST_CASE("Draw a polygon.") {
 
 TEST_CASE("Draw a triangle.") {
   std::ostringstream output;
-  Triangle triangle(100);
-  triangle.draw(output);
+  auto triangle = makeTriangle(100);
+  triangle->draw(output);
 
   REQUIRE(output.str() ==
           "gsave\n/u 100 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def "
@@ -63,8 +64,8 @@ TEST_CASE("Draw a triangle.") {
 
 TEST_CASE("Draw a Square.") {
   std::ostringstream output;
-  Square square(100);
-  square.draw(output);
+  auto square = makeSquare(100);
+  square->draw(output);
 
   REQUIRE(output.str() ==
           "gsave\n/u 100 def \n/lw 1 u div def \n/n 4 def\n/da 360 n div def "
@@ -78,11 +79,10 @@ TEST_CASE("Draw a Square.") {
 // *********************************************************************
 
 TEST_CASE("Rotate a Triangle") {
-  auto triangle = std::make_shared<Triangle>(50);
-
-  Rotated rotated(triangle, Rotated::ninety);
+  auto triangle = makeTriangle(50);
+  auto rotated = makeRotated(triangle,Rotated::ninety);
   std::ostringstream output;
-  rotated.draw(output);
+  rotated->draw(output);
   REQUIRE(output.str() ==
           "gsave\n25 21.6506 translate\n90 rotate\n-25 -21.6506 "
           "translate\ngsave\n/u 50 def \n/lw 1 u div def \n/n 3 def\n/da 360 n "
@@ -93,10 +93,9 @@ TEST_CASE("Rotate a Triangle") {
 
 TEST_CASE("Scale a Triangle") {
   auto triangle = makeTriangle(50);
-
-  Scaled scaled(triangle, 5, 5);
+  auto scaled = makeScaled(triangle, 5, 5);
   std::ostringstream output;
-  scaled.draw(output);
+  scaled->draw(output);
   REQUIRE(output.str() ==
           "gsave\n5 5 scale\ngsave\n/u 50 def \n/lw 1 u div def \n/n 3 "
           "def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth "
@@ -110,10 +109,10 @@ TEST_CASE("Layered Shapes") {
   auto triangle2 = makeTriangle(100);
 
   std::vector<std::shared_ptr<Shape>> shapes = {triangle, rectangle, triangle2};
-  Layered layered(shapes);
+  auto layered = makeLayered(shapes);
   std::ostringstream output;
   setCursor(output, 200.0, 200.0);
-  layered.draw(output);
+  layered->draw(output);
   REQUIRE("200 200 translate\ngsave\n/u 50 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \na cos a sin lineto \n} repeat\nclosepath\nstroke\ngrestore\ngsave\nnewpath\n-50 -75 100 150 rectstroke \nstroke\ngrestore\ngsave\n/u 100 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \na cos a sin lineto \n} repeat\nclosepath\nstroke\ngrestore");
 }
 
@@ -123,10 +122,10 @@ TEST_CASE("Horizontal Drawing") {
   auto triangle = makeTriangle(60);
 
   std::vector<std::shared_ptr<Shape>> shapes = {rectangle, circle, triangle};
-  Horizontal horizontal(shapes);
+  auto horizontal = makeHorizontal(shapes);
   std::ostringstream output;
   setCursor(output, 200.0, 200.0);
-  horizontal.draw(output);
+  horizontal->draw(output);
   REQUIRE(
       output.str() ==
       "200 200 translate\n15 0 translate\ngsave\nnewpath\n-15 -75 30 150 "
@@ -147,10 +146,10 @@ TEST_CASE("Vertical Drawing") {
 
   std::vector<std::shared_ptr<Shape>> shapes = {circle, triangle, square,
                                                 rectangle, circle2};
-  Vertical vertical(shapes);
+  auto vertical = makeVertical(shapes);
   std::ostringstream output;
   setCursor(output, 200.0, 200.0);
-  vertical.draw(output);
+  vertical->draw(output);
   REQUIRE(
       output.str() ==
       "200 200 translate\n0 45 translate\ngsave\nnewpath\n0 0 45 0 360 "
@@ -170,10 +169,10 @@ TEST_CASE("Vertical Drawing") {
 }
 
 TEST_CASE("Hamburger drawing") {
-  Hamburger hamburger(2, 1, 1);
+  auto hamburger = makeHamburger(2,1,1);
   std::ostringstream output;
   setCursor(output, 200.0, 200.0);
-  hamburger.draw(output);
+  hamburger->draw(output);
   REQUIRE(output.str() ==
           "200 200 translate\n1.0 0.7 0.0 setrgbcolor fill\n0 15 "
           "translate\ngsave\nnewpath\n-50 -15 100 30 "
