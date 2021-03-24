@@ -12,7 +12,7 @@ CPS (C++ to PostScript) is a C++ library that allows users to specify drawings a
 | interface | User interaction code |
 
 ## Running tests
-```
+```bash
 mkdir build
 cd build
 cmake ..
