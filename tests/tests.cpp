@@ -113,7 +113,7 @@ TEST_CASE("Layered Shapes") {
   std::ostringstream output;
   setCursor(output, 200.0, 200.0);
   layered->draw(output);
-  REQUIRE("200 200 translate\ngsave\n/u 50 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \na cos a sin lineto \n} repeat\nclosepath\nstroke\ngrestore\ngsave\nnewpath\n-50 -75 100 150 rectstroke \nstroke\ngrestore\ngsave\n/u 100 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \na cos a sin lineto \n} repeat\nclosepath\nstroke\ngrestore");
+  REQUIRE("\n200 200 translate\ngsave\n/u 50 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \na cos a sin lineto \n} repeat\nclosepath\nstroke\ngrestore\ngsave\nnewpath\n-50 -75 100 150 rectstroke \nstroke\ngrestore\ngsave\n/u 100 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def \n/a 90 def\nu dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da add def \na cos a sin lineto \n} repeat\nclosepath\nstroke\ngrestore");
 }
 
 TEST_CASE("Horizontal Drawing") {
@@ -128,7 +128,7 @@ TEST_CASE("Horizontal Drawing") {
   horizontal->draw(output);
   REQUIRE(
       output.str() ==
-      "200 200 translate\n15 0 translate\ngsave\nnewpath\n-15 -75 30 150 "
+      "\n200 200 translate\n15 0 translate\ngsave\nnewpath\n-15 -75 30 150 "
       "rectstroke \nstroke\ngrestore\n15 0 translate\n50 0 "
       "translate\ngsave\nnewpath\n0 0 50 0 360 arc \nstroke\ngrestore\n50 0 "
       "translate\n30 0 translate\ngsave\n/u 60 def \n/lw 1 u div def \n/n 3 "
@@ -152,7 +152,7 @@ TEST_CASE("Vertical Drawing") {
   vertical->draw(output);
   REQUIRE(
       output.str() ==
-      "200 200 translate\n0 45 translate\ngsave\nnewpath\n0 0 45 0 360 "
+      "\n200 200 translate\n0 45 translate\ngsave\nnewpath\n0 0 45 0 360 "
       "arc \nstroke\ngrestore\n0 45 translate\n0 25.9808 translate\ngsave\n/u"
       " 60 def \n/lw 1 u div def \n/n 3 def\n/da 360 n div def \n/a 90 def\nu "
       "dup scale\nlw setlinewidth \nnewpath\n0 1 moveto\nn 1 sub {/a a da "
@@ -174,7 +174,7 @@ TEST_CASE("Hamburger drawing") {
   setCursor(output, 200.0, 200.0);
   hamburger->draw(output);
   REQUIRE(output.str() ==
-          "200 200 translate\n1.0 0.7 0.0 setrgbcolor fill\n0 15 "
+          "\n200 200 translate\n1.0 0.7 0.0 setrgbcolor fill\n0 15 "
           "translate\ngsave\nnewpath\n-50 -15 100 30 "
           "rectstroke \nstroke\ngrestore\n0 15 translate\n0.7 0.3 0.0 "
           "setrgbcolor fill\n0 12.5 translate\ngsave\nnewpath\n-50 -12.5 100 "

@@ -1,6 +1,6 @@
 #include "../headers/interface.hpp"
 void setCursor(std::ostream &file, double x, double y) {
-  file << x << " " << y << " translate\n";
+  file << "\n" << x << " " << y << " translate\n";
 }
 std::shared_ptr<Polygon> makePolygon(const int &numSides, const double &sideLength) {
     return std::make_shared<Polygon>(numSides, sideLength);
